@@ -14,7 +14,25 @@ jobs:
           password: ${{ secrets.GHCR_IO_TOKEN }}
       - name: Docker pull and push
         run: |
-          docker pull k8s.gcr.io/ingress-nginx/controller:v0.35.0  
-          docker tag  k8s.gcr.io/ingress-nginx/controller:v0.35.0  ghcr.io/itswl/ingress-nginx/controller:v0.35.0       
-          docker push ghcr.io/itswl/ingress-nginx/controller:v0.35.0
+          docker pull k8s.gcr.io/kube-apiserver:v1.19.2
+          docker pull k8s.gcr.io/kube-controller-manager:v1.19.2
+          docker pull k8s.gcr.io/kube-scheduler:v1.19.2
+          docker pull k8s.gcr.io/kube-proxy:v1.19.2
+          docker pull k8s.gcr.io/pause:3.2
+          docker pull k8s.gcr.io/etcd:3.4.13-0
+          docker pull k8s.gcr.io/coredns:1.7.0
+		      docker tag  k8s.gcr.io/kube-apiserver:v1.19.2            ghcr.io/itswl/kube-apiserver:v1.19.2
+          docker tag  k8s.gcr.io/kube-controller-manager:v1.19.2   ghcr.io/itswl/kube-controller-manager:v1.19.2
+          docker tag  k8s.gcr.io/kube-scheduler:v1.19.2            ghcr.io/itswl/kube-scheduler:v1.19.2
+          docker tag  k8s.gcr.io/kube-proxy:v1.19.2                ghcr.io/itswl/kube-proxy:v1.19.2
+          docker tag  k8s.gcr.io/pause:3.2                         ghcr.io/itswl/pause:3.2
+          docker tag  k8s.gcr.io/etcd:3.4.13-0                     ghcr.io/itswl/etcd:3.4.13-0
+          docker tag  k8s.gcr.io/coredns:1.7.0                     ghcr.io/itswl/coredns:1.7.0  
+          docker push ghcr.io/itswl/kube-apiserver:v1.19.2
+          docker push ghcr.io/itswl/kube-controller-manager:v1.19.2
+          docker push ghcr.io/itswl/kube-scheduler:v1.19.2
+          docker push ghcr.io/itswl/kube-proxy:v1.19.2
+          docker push ghcr.io/itswl/pause:3.2
+          docker push ghcr.io/itswl/etcd:3.4.13-0
+          docker push ghcr.io/itswl/coredns:1.7.0  
 
