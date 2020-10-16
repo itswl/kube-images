@@ -1,3 +1,4 @@
+# kubeadm config images list --kubernetes-version v1.19.3
 name: GitGoogleContainer
 on:
   push:
@@ -14,7 +15,7 @@ jobs:
           password: ${{ secrets.GHCR_IO_TOKEN }} 
       - name: Docker pull and push
         run: |
-          docker pull k8s.gcr.io/kube-apiserver:v1.19.2
+          docker pull k8s.gcr.io/kube-apiserver:v1.19.3
           docker pull k8s.gcr.io/kube-controller-manager:v1.19.3
           docker pull k8s.gcr.io/kube-scheduler:v1.19.3
           docker pull k8s.gcr.io/kube-proxy:v1.19.3
