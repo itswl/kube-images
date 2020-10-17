@@ -22,20 +22,24 @@ jobs:
           docker pull k8s.gcr.io/pause:3.2
           docker pull k8s.gcr.io/etcd:3.4.13-0
           docker pull k8s.gcr.io/coredns:1.7.0
-          docker tag  k8s.gcr.io/kube-apiserver:v1.19.3            ghcr.io/itswl/kube-apiserver:v1.19.3
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.19.3   ghcr.io/itswl/kube-controller-manager:v1.19.3
-          docker tag  k8s.gcr.io/kube-scheduler:v1.19.3            ghcr.io/itswl/kube-scheduler:v1.19.3
-          docker tag  k8s.gcr.io/kube-proxy:v1.19.3                ghcr.io/itswl/kube-proxy:v1.19.3
-          docker tag  k8s.gcr.io/pause:3.2                         ghcr.io/itswl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                     ghcr.io/itswl/etcd:3.4.13-0
-          docker tag  k8s.gcr.io/coredns:1.7.0                     ghcr.io/itswl/coredns:1.7.0  
-          docker push ghcr.io/itswl/kube-apiserver:v1.19.3
+          docker pull k8s.gcr.io/metrics-server/metrics-server:v0.3.7
+          docker tag  k8s.gcr.io/kube-apiserver:v1.19.3                 ghcr.io/itswl/kube-apiserver:v1.19.3
+          docker tag  k8s.gcr.io/kube-controller-manager:v1.19.3        ghcr.io/itswl/kube-controller-manager:v1.19.3
+          docker tag  k8s.gcr.io/kube-scheduler:v1.19.3                 ghcr.io/itswl/kube-scheduler:v1.19.3
+          docker tag  k8s.gcr.io/kube-proxy:v1.19.3                     ghcr.io/itswl/kube-proxy:v1.19.3
+          docker tag  k8s.gcr.io/pause:3.2                              ghcr.io/itswl/pause:3.2
+          docker tag  k8s.gcr.io/etcd:3.4.13-0                          ghcr.io/itswl/etcd:3.4.13-0
+          docker tag  k8s.gcr.io/coredns:1.7.0                          ghcr.io/itswl/coredns:1.7.0 
+          docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7   ghcr.io/itswl/metrics-server/metrics-server:v0.3.7
+          docker push ghcr.io/itswl/kube-apiserver:v1.19.3 
           docker push ghcr.io/itswl/kube-controller-manager:v1.19.3
           docker push ghcr.io/itswl/kube-scheduler:v1.19.3
           docker push ghcr.io/itswl/kube-proxy:v1.19.3
           docker push ghcr.io/itswl/pause:3.2
           docker push ghcr.io/itswl/etcd:3.4.13-0
           docker push ghcr.io/itswl/coredns:1.7.0  
+          docker push ghcr.io/itswl/metrics-server/metrics-server:v0.3.7
+          
       - name: Login in Docker Registry Main
         uses: docker/login-action@v1
         with:
@@ -43,13 +47,14 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docke push Main
         run: |
-          docker tag  k8s.gcr.io/kube-apiserver:v1.19.3            imwl/kube-apiserver:v1.19.3
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.19.3   imwl/kube-controller-manager:v1.19.3
-          docker tag  k8s.gcr.io/kube-scheduler:v1.19.3            imwl/kube-scheduler:v1.19.3
-          docker tag  k8s.gcr.io/kube-proxy:v1.19.3                imwl/kube-proxy:v1.19.3
-          docker tag  k8s.gcr.io/pause:3.2                         imwl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                     imwl/etcd:3.4.13-0
-          docker tag  k8s.gcr.io/coredns:1.7.0                     imwl/coredns:1.7.0  
+          docker tag  k8s.gcr.io/kube-apiserver:v1.19.3                 imwl/kube-apiserver:v1.19.3
+          docker tag  k8s.gcr.io/kube-controller-manager:v1.19.3        imwl/kube-controller-manager:v1.19.3
+          docker tag  k8s.gcr.io/kube-scheduler:v1.19.3                 imwl/kube-scheduler:v1.19.3
+          docker tag  k8s.gcr.io/kube-proxy:v1.19.3                     imwl/kube-proxy:v1.19.3
+          docker tag  k8s.gcr.io/pause:3.2                              imwl/pause:3.2
+          docker tag  k8s.gcr.io/etcd:3.4.13-0                          imwl/etcd:3.4.13-0
+          docker tag  k8s.gcr.io/coredns:1.7.0                          imwl/coredns:1.7.0  
+          docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7   imwl/metrics-server/metrics-server:v0.3.7
           docker push imwl/kube-apiserver:v1.19.3
           docker push imwl/kube-controller-manager:v1.19.3
           docker push imwl/kube-scheduler:v1.19.3
@@ -57,3 +62,4 @@ jobs:
           docker push imwl/pause:3.2
           docker push imwl/etcd:3.4.13-0
           docker push imwl/coredns:1.7.0  
+          docker push imwl/metrics-server/metrics-server:v0.3.7
