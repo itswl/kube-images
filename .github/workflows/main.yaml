@@ -15,28 +15,28 @@ jobs:
           password: ${{ secrets.GHCR_IO_TOKEN }} 
       - name: Docker pull and push
         run: |
-          docker pull k8s.gcr.io/kube-apiserver:v1.18.10
-          docker pull k8s.gcr.io/kube-controller-manager:v1.18.10
-          docker pull k8s.gcr.io/kube-scheduler:v1.18.10
-          docker pull k8s.gcr.io/kube-proxy:v1.18.10
+          docker pull k8s.gcr.io/kube-apiserver:v1.18.12
+          docker pull k8s.gcr.io/kube-controller-manager:v1.18.12
+          docker pull k8s.gcr.io/kube-scheduler:v1.18.12
+          docker pull k8s.gcr.io/kube-proxy:v1.18.12
           docker pull k8s.gcr.io/pause:3.2
-          docker pull k8s.gcr.io/etcd:3.4.13-0
+          docker pull k8s.gcr.io/etcd:3.4.3-0
           docker pull k8s.gcr.io/coredns:1.7.0
           docker pull k8s.gcr.io/metrics-server/metrics-server:v0.3.7
-          docker tag  k8s.gcr.io/kube-apiserver:v1.18.10                 ghcr.io/itswl/kube-apiserver:v1.18.10
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.18.10        ghcr.io/itswl/kube-controller-manager:v1.18.10
-          docker tag  k8s.gcr.io/kube-scheduler:v1.18.10                 ghcr.io/itswl/kube-scheduler:v1.18.10
-          docker tag  k8s.gcr.io/kube-proxy:v1.18.10                     ghcr.io/itswl/kube-proxy:v1.18.10
+          docker tag  k8s.gcr.io/kube-apiserver:v1.18.12                 ghcr.io/itswl/kube-apiserver:v1.18.12
+          docker tag  k8s.gcr.io/kube-controller-manager:v1.18.12        ghcr.io/itswl/kube-controller-manager:v1.18.12
+          docker tag  k8s.gcr.io/kube-scheduler:v1.18.12                 ghcr.io/itswl/kube-scheduler:v1.18.12
+          docker tag  k8s.gcr.io/kube-proxy:v1.18.12                     ghcr.io/itswl/kube-proxy:v1.18.12
           docker tag  k8s.gcr.io/pause:3.2                              ghcr.io/itswl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                          ghcr.io/itswl/etcd:3.4.13-0
+          docker tag  k8s.gcr.io/etcd:3.4.3-0                          ghcr.io/itswl/etcd:3.4.3-0
           docker tag  k8s.gcr.io/coredns:1.7.0                          ghcr.io/itswl/coredns:1.7.0 
           docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7   ghcr.io/itswl/metrics-server:v0.3.7
-          docker push ghcr.io/itswl/kube-apiserver:v1.18.10 
-          docker push ghcr.io/itswl/kube-controller-manager:v1.18.10
-          docker push ghcr.io/itswl/kube-scheduler:v1.18.10
-          docker push ghcr.io/itswl/kube-proxy:v1.18.10
+          docker push ghcr.io/itswl/kube-apiserver:v1.18.12 
+          docker push ghcr.io/itswl/kube-controller-manager:v1.18.12
+          docker push ghcr.io/itswl/kube-scheduler:v1.18.12
+          docker push ghcr.io/itswl/kube-proxy:v1.18.12
           docker push ghcr.io/itswl/pause:3.2
-          docker push ghcr.io/itswl/etcd:3.4.13-0
+          docker push ghcr.io/itswl/etcd:3.4.3-0
           docker push ghcr.io/itswl/coredns:1.7.0  
           docker push ghcr.io/itswl/metrics-server:v0.3.7
           
@@ -47,19 +47,19 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docke push Main
         run: |
-          docker tag  k8s.gcr.io/kube-apiserver:v1.18.10                 imwl/kube-apiserver:v1.18.10
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.18.10        imwl/kube-controller-manager:v1.18.10
-          docker tag  k8s.gcr.io/kube-scheduler:v1.18.10                 imwl/kube-scheduler:v1.18.10
-          docker tag  k8s.gcr.io/kube-proxy:v1.18.10                     imwl/kube-proxy:v1.18.10
+          docker tag  k8s.gcr.io/kube-apiserver:v1.18.12                 imwl/kube-apiserver:v1.18.12
+          docker tag  k8s.gcr.io/kube-controller-manager:v1.18.12        imwl/kube-controller-manager:v1.18.12
+          docker tag  k8s.gcr.io/kube-scheduler:v1.18.12                 imwl/kube-scheduler:v1.18.12
+          docker tag  k8s.gcr.io/kube-proxy:v1.18.12                     imwl/kube-proxy:v1.18.12
           docker tag  k8s.gcr.io/pause:3.2                              imwl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                          imwl/etcd:3.4.13-0
+          docker tag  k8s.gcr.io/etcd:3.4.3-0                          imwl/etcd:3.4.3-0
           docker tag  k8s.gcr.io/coredns:1.7.0                          imwl/coredns:1.7.0  
           docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7   imwl/metrics-server:v0.3.7
-          docker push imwl/kube-apiserver:v1.18.10
-          docker push imwl/kube-controller-manager:v1.18.10
-          docker push imwl/kube-scheduler:v1.18.10
-          docker push imwl/kube-proxy:v1.18.10
+          docker push imwl/kube-apiserver:v1.18.12
+          docker push imwl/kube-controller-manager:v1.18.12
+          docker push imwl/kube-scheduler:v1.18.12
+          docker push imwl/kube-proxy:v1.18.12
           docker push imwl/pause:3.2
-          docker push imwl/etcd:3.4.13-0
+          docker push imwl/etcd:3.4.3-0
           docker push imwl/coredns:1.7.0  
           docker push imwl/metrics-server:v0.3.7
