@@ -1,6 +1,8 @@
 name: GitGoogleContainer02
 on:
   push:
+    paths:
+    - '*kube-other.yaml'
 jobs:
   build:
     runs-on: ubuntu-latest
