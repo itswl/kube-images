@@ -15,8 +15,11 @@ jobs:
           cd /usr/bin
           sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/kubeadm
           sudo chmod +x kubeadm
-          images=$(kubeadm config images list --kubernetes-version $kube_version)
-          echo $images >~/images.txt
+          cat > ~/image.sh <<-EOF
+          #!/bin/bash
+          images="$(kubeadm config images list --kubernetes-version $kube_version)"
+          EOF
+          source ~/image.sh
           
       - name: Login in Github Registry
         uses: docker/login-action@v1
@@ -26,16 +29,14 @@ jobs:
           password: ${{ secrets.GHCR_IO_TOKEN }} 
       - name: Docker pull 
         run: |
-          images=`cat ~/images.txt`
           for i in $images;do
             docker pull $i;
           done 
       - name: Docker push ghcr.io
         run: |
-          images=`cat ~/images.txt`
           for i in $images;do
-            docker tag  $i ghcr.io/itswl/${i#*/}
-            docker push ghcr.io/itswl/${i#*/}
+            docker tag  $i ghcr.io/itswl/${i##*/}
+            docker push ghcr.io/itswl/${i##*/}
           done
           
       - name: Login in Docker Registry 
@@ -46,9 +47,8 @@ jobs:
          
       - name: Docke push 
         run: |
-          images=`cat ~/images.txt`
           for i in $images;do
-            docker tag  $i imwl/${i#*/}
-            docker push imwl/${i#*/}
+            docker tag  $i imwl/${i##*/}
+            docker push imwl/${i##*/}
           done
           
