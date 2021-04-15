@@ -13,32 +13,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_IO_TOKEN }} 
-      - name: Docker pull and push
+      - name: Docker pull 
         run: |
-          docker pull k8s.gcr.io/kube-apiserver:v1.20.0
-          docker pull k8s.gcr.io/kube-controller-manager:v1.20.0
-          docker pull k8s.gcr.io/kube-scheduler:v1.20.0
-          docker pull k8s.gcr.io/kube-proxy:v1.20.0
-          docker pull k8s.gcr.io/pause:3.2
-          docker pull k8s.gcr.io/etcd:3.4.13-0
-          docker pull k8s.gcr.io/coredns:1.7.0
-          docker pull k8s.gcr.io/metrics-server/metrics-server:v0.3.7
-          docker tag  k8s.gcr.io/kube-apiserver:v1.20.0                 ghcr.io/itswl/kube-apiserver:v1.20.0
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.20.0        ghcr.io/itswl/kube-controller-manager:v1.20.0
-          docker tag  k8s.gcr.io/kube-scheduler:v1.20.0                 ghcr.io/itswl/kube-scheduler:v1.20.0
-          docker tag  k8s.gcr.io/kube-proxy:v1.20.0                     ghcr.io/itswl/kube-proxy:v1.20.0
-          docker tag  k8s.gcr.io/pause:3.2                               ghcr.io/itswl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                            ghcr.io/itswl/etcd:3.4.13-0
-          docker tag  k8s.gcr.io/coredns:1.7.0                           ghcr.io/itswl/coredns:1.7.0 
-          docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7    ghcr.io/itswl/metrics-server:v0.3.7
-          docker push ghcr.io/itswl/kube-apiserver:v1.20.0 
-          docker push ghcr.io/itswl/kube-controller-manager:v1.20.0
-          docker push ghcr.io/itswl/kube-scheduler:v1.20.0
-          docker push ghcr.io/itswl/kube-proxy:v1.20.0
-          docker push ghcr.io/itswl/pause:3.2
-          docker push ghcr.io/itswl/etcd:3.4.13-0
-          docker push ghcr.io/itswl/coredns:1.7.0  
-          docker push ghcr.io/itswl/metrics-server:v0.3.7
+          images=$(kubeadm config images list --kubernetes-version v1.20.5)
+          for i in $test;do
+            docker pull $i;
+          done 
+      - name: Docker push ghcr.io
+        run: |
+          for i in $test;do
+            docker tag  $i ghcr.io/${i#*/}
+            docker push ghcr.io/${i#*/}
+          done
           
       - name: Login in Docker Registry Main
         uses: docker/login-action@v1
@@ -47,20 +33,8 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docke push Main
         run: |
-          docker tag  k8s.gcr.io/kube-apiserver:v1.20.0                 imwl/kube-apiserver:v1.20.0
-          docker tag  k8s.gcr.io/kube-controller-manager:v1.20.0        imwl/kube-controller-manager:v1.20.0
-          docker tag  k8s.gcr.io/kube-scheduler:v1.20.0                 imwl/kube-scheduler:v1.20.0
-          docker tag  k8s.gcr.io/kube-proxy:v1.20.0                     imwl/kube-proxy:v1.20.0
-          docker tag  k8s.gcr.io/pause:3.2                               imwl/pause:3.2
-          docker tag  k8s.gcr.io/etcd:3.4.13-0                            imwl/etcd:3.4.13-0
-          docker tag  k8s.gcr.io/coredns:1.7.0                           imwl/coredns:1.7.0  
-          docker tag  k8s.gcr.io/metrics-server/metrics-server:v0.3.7    imwl/metrics-server:v0.3.7
-          docker push imwl/kube-apiserver:v1.20.0
-          docker push imwl/kube-controller-manager:v1.20.0
-          docker push imwl/kube-scheduler:v1.20.0
-          docker push imwl/kube-proxy:v1.20.0
-          docker push imwl/pause:3.2
-          docker push imwl/etcd:3.4.13-0
-          docker push imwl/coredns:1.7.0  
-          docker push imwl/metrics-server:v0.3.7
+          for i in $test;do
+            docker tag  $i imwl/${i#*/}
+            docker push imwl/${i#*/}
+          done
           
