@@ -3,7 +3,7 @@ name: GitGoogleContainer
 on:
   push:
 env:
-  kube_version: v1.20.3
+  kube_version: v1.20.2
 jobs:
   build:
     runs-on: ubuntu-latest
