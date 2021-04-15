@@ -22,12 +22,13 @@ jobs:
       - name: Docker pull 
         run: |
           images=$(kubeadm config images list --kubernetes-version v1.20.5)
-          for i in $test;do
+          echo $images
+          for i in $images;do
             docker pull $i;
           done 
       - name: Docker push ghcr.io
         run: |
-          for i in $test;do
+          for i in $images;do
             docker tag  $i ghcr.io/${i#*/}
             docker push ghcr.io/${i#*/}
           done
@@ -39,7 +40,7 @@ jobs:
          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docke push Main
         run: |
-          for i in $test;do
+          for i in $images;do
             docker tag  $i imwl/${i#*/}
             docker push imwl/${i#*/}
           done
