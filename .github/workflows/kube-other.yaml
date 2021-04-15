@@ -1,4 +1,4 @@
-name: GitGoogleContainer02
+name: kube-other
 on:
   push:
     paths:
