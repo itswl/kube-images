@@ -34,7 +34,7 @@ jobs:
         run: |
           images=`cat ~/images.txt`
           for i in $images;do
-            docker tag  $i ghcr.io/${i#*/}
+            docker tag  $i ghcr.io/itswl/${i#*/}
             docker push ghcr.io/itswl/${i#*/}
           done
           
