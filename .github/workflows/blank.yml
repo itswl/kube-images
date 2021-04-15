@@ -1,0 +1,81 @@
+name: GitGoogleContainer02
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@v2
+      - name: Login in Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_IO_TOKEN }} 
+      - name: Docker pull 
+        run: |
+          docker pull quay.io/fluentd_elasticsearch/elasticsearch:v7.4.3
+          docker pull alpine:3.6
+          docker pull quay.io/fluentd_elasticsearch/fluentd:v3.1.0
+          docker pull docker.elastic.co/kibana/kibana-oss:7.4.2
+          docker pull quay.io/thanos/thanos:v0.17.2
+          docker pull quay.io/brancz/kube-rbac-proxy:v0.8.0
+          docker pull quay.io/prometheus/node-exporter:v1.1.1
+          docker pull quay.io/prometheus/prometheus:v2.25.0
+          docker pull quay.io/prometheus-operator/prometheus-operator:v0.46.0
+          docker pull quay.io/prometheus/alertmanager:v0.21.0
+          docker pull quay.io/prometheus/blackbox-exporter:v0.18.0
+          docker pull gcr.io/google_containers/metrics-server-amd64:v0.2.0
+          docker pull gcr.io/google_containers/cpvpa-amd64:v0.8.1
+          docker pull k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.0.0-rc.1
+          docker pull directxman12/k8s-prometheus-adapter:v0.8.3
+          docker pull jimmidyson/configmap-reload:v0.5.0
+          docker pull grafana/grafana:7.4.3
+          docker pull rook/ceph:v1.5.9
+          docker pull ceph/ceph:v15.2.9
+          docker pull quay.io/prometheus/node-exporter:v1.1.1
+          docker pull kubernetesui/dashboard:v2.1.0
+          docker pull quay.io/cephcsi/cephcsi:v3.2.0
+          docker pull quay.io/brancz/kube-rbac-proxy:v0.8.0
+          docker pull quay.io/fluentd_elasticsearch/elasticsearch:v7.4.3
+          docker pull quay.io/fluentd_elasticsearch/fluentd:v3.1.0
+          docker pull kubernetesui/metrics-scraper:v1.0.6
+          docker pull coredns/coredns:1.7.1
+          docker pull k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.0
+          docker pull calico/node:v3.15.3
+          docker pull calico/pod2daemon-flexvol:v3.15.3
+          docker pull calico/cni:v3.15.3
+          docker pull calico/kube-controllers:v3.15.3
+          docker pull k8s.gcr.io/sig-storage/csi-resizer:v1.0.0
+          docker pull k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.0.1
+          docker pull k8s.gcr.io/sig-storage/csi-attacher:v3.0.0
+          docker pull k8s.gcr.io/sig-storage/csi-provisioner:v2.0.0
+ 
+       - name: images list
+         run: |
+          docker_orgin_images=$(docker image ls --format "{{.Repository}}:{{.Tag}}")
+          echo $docker_orgin_images > ~/images.txt
+          echo ~/images.txt
+
+      - name: Docker push ghcr.io
+        run: |
+          images=$(cat ~/images.txt)
+          for i in $images;do
+            docker tag  $i ghcr.io/${{ github.repository_owner }}/${i##*/}
+            docker push ghcr.io/${{ github.repository_owner }}/${i##*/}
+          done
+          
+      - name: Login in Docker Registry 
+        uses: docker/login-action@v1
+        with:
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
+         
+      - name: Docke push 
+        run: |
+          images=$(cat ~/images.txt)
+          for i in $images;do
+            docker tag  $i ${{ secrets.DOCKER_USERNAME }}/${i##*/}
+            docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
+          done
+          
