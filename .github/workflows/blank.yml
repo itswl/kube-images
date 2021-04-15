@@ -17,7 +17,7 @@ jobs:
           sudo chmod +x kubeadm
           images=$(kubeadm config images list --kubernetes-version $kube_version)
         env:
-          images: images
+          images: $images
 
       - name: Login in Github Registry
         uses: docker/login-action@v1
