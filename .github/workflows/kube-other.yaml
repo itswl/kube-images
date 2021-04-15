@@ -1,8 +1,8 @@
 name: kube-other
 on:
   push:
-    paths:
-    - '*kube-other.yaml'
+    branches:
+      - kube-other
 jobs:
   build:
     runs-on: ubuntu-latest
