@@ -52,7 +52,7 @@ jobs:
           docker pull k8s.gcr.io/sig-storage/csi-provisioner:v2.0.0
  
        - name: images list
-        run: |
+         run: |
           docker_orgin_images=$(docker image ls --format "{{.Repository}}:{{.Tag}}")
           echo $docker_orgin_images > ~/images.txt
           echo ~/images.txt
