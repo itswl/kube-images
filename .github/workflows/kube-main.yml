@@ -1,7 +1,9 @@
 # kubeadm config images list --kubernetes-version v1.20.0
-name: GitGoogleContainer
+name: kube-main
 on:
   push:
+    paths:
+    - '*kube-main.yml'
 env:
   kube_version: v1.20.2
 jobs:
