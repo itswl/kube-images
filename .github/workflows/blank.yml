@@ -11,8 +11,8 @@ jobs:
         run: |
           RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
           cd /usr/bin
-          curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/kubeadm
-          chmod +x kubeadm
+          sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/kubeadm
+          sudo chmod +x kubeadm
       - name: Login in Docker Registry
         uses: docker/login-action@v1
         with:
