@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v2
+      - name: install kubeadm
+        run: |
+          RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+          curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+          chmod +x {kubeadm,kubelet,kubectl}
       - name: Login in Docker Registry
         uses: docker/login-action@v1
         with:
