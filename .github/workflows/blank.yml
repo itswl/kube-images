@@ -24,7 +24,7 @@ jobs:
       - name: Docker pull 
         run: |
           images=$(kubeadm config images list --kubernetes-version $kube_version)
-          export $images
+          export images
           echo $images
           for i in $images;do
             docker pull $i;
