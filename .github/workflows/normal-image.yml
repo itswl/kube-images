@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.GHCR_IO_TOKEN }} 
       - name: Docker pull 
         run: |
-          docker pull quay.io/fluentd_elasticsearch/elasticsearch:v7.4.3
+          docker pull jenkinsci/blueocean:1.24.6
  
       - name: Docker Get Images
         run: |
