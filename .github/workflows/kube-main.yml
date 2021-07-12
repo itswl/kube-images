@@ -5,7 +5,7 @@ on:
     branches:
       - kube-main
 env:
-  kube_version: v1.20.1
+  kube_version: v1.21.2
 jobs:
   build:
     runs-on: ubuntu-latest
