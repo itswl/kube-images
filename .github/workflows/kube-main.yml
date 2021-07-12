@@ -54,3 +54,4 @@ jobs:
             docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
           done
           
+          
