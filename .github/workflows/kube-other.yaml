@@ -21,6 +21,13 @@ jobs:
          username: ${{ secrets.DOCKER_USERNAME }}
          password: ${{ secrets.DOCKER_PASSWORD }}
          
+     - name: get images name
+       run: |
+          docker_orgin_images=$(docker image ls --format "{{.Repository}}:{{.Tag}}")
+          echo $docker_orgin_images > ~/images.txt
+          echo ~/images.txt
+          cat  ~/images.txt
+  
          
       - name: Docker pull 
         run: |
