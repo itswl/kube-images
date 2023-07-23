@@ -34,6 +34,7 @@ jobs:
             docker pull registry.k8s.io/sig-storage/csi-resizer:v1.8.0
             docker pull registry.k8s.io/sig-storage/csi-snapshotter:v6.2.2
             docker pull rook/ceph:master
+            
 #      - name: Docker push ghcr.io
 #        run: |
 #          docker_orgin_images=$(docker image ls --format "{{.Repository}}:{{.Tag}}")
@@ -58,7 +59,9 @@ jobs:
         run: |
           images=$(cat ~/images.txt)
           for i in $images;do
+            echo "docker tag  $i ${{ secrets.DOCKER_USERNAME }}/${i##*/}"
             docker tag  $i ${{ secrets.DOCKER_USERNAME }}/${i##*/}
-            docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
+            echo "docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}"
+            ocker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
           done
           
