@@ -62,6 +62,6 @@ jobs:
             echo "docker tag  $i ${{ secrets.DOCKER_USERNAME }}/${i##*/}"
             docker tag  $i ${{ secrets.DOCKER_USERNAME }}/${i##*/}
             echo "docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}"
-            ocker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
+            docker push ${{ secrets.DOCKER_USERNAME }}/${i##*/}
           done
           
